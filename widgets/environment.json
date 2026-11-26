@@ -1,0 +1,1 @@
+[{"values":["https://www.saucedemo.com"],"name":"Target.UI"},{"values":["https://restful-booker.herokuapp.com"],"name":"Target.API"},{"values":["3.13.18"],"name":"Python"},{"values":["Linux-7.0.0-1020-azure-x86_64-with-glibc2.43"],"name":"Platform"},{"values":["9.2.0"],"name":"Pytest"},{"values":["1.65.2"],"name":"Playwright"},{"values":["0"],"name":"ExitStatus"}]
