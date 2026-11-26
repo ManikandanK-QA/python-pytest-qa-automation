@@ -1,0 +1,101 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qa-portfolio-automation"
+version = "1.0.0"
+description = "Layered pytest framework for UI and REST API automation with contract validation, Allure reporting and GitHub Actions CI."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [{ name = "Manikandan Kandasamy", email = "manikandan.auto.qa@gmail.com" }]
+keywords = ["qa", "test-automation", "pytest", "playwright", "api-testing", "sdet"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Framework :: Pytest",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: Software Development :: Testing",
+]
+dependencies = [
+  "allure-pytest>=2.16,<3",
+  "faker>=40,<41",
+  "httpx>=0.28,<1",
+  "playwright>=1.65,<2",
+  "pydantic>=2.14,<3",
+  "pydantic-settings>=2.16,<3",
+  "pytest>=9,<10",
+  "pytest-playwright>=0.10,<1",
+  "pytest-xdist>=3.8,<4",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.18,<2",
+  "ruff>=0.17,<1",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+minversion = "9.0"
+testpaths = ["tests"]
+addopts = [
+  "-ra",
+  "--strict-markers",
+  "--strict-config",
+  "--import-mode=importlib",
+  "--alluredir=allure-results",
+  "--clean-alluredir",
+  "--junitxml=reports/junit.xml",
+  "--tracing=retain-on-failure",
+  "--screenshot=only-on-failure",
+]
+markers = [
+  "ui: browser-driven tests",
+  "api: REST API tests with no browser",
+  "smoke: fast pre-merge confidence subset",
+  "regression: full functional sweep",
+]
+filterwarnings = [
+  "error",
+  # pytest-playwright 0.10 registers its `base_url` fallback as a
+  # session-scoped instance method; the warning comes from the plugin, not
+  # from this project, and upstream has yet to move to a classmethod.
+  "ignore:Session-scoped fixtures defined as instance methods are deprecated:pytest.PytestRemovedIn10Warning",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "C4", "SIM", "RUF", "PTH", "PT", "ANN"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["ANN001", "ANN201", "ANN202"]
+# `**kwargs` is forwarded verbatim to httpx, whose signatures are already typed.
+"src/qa_portfolio/api/client.py" = ["ANN401"]
+"src/qa_portfolio/api/errors.py" = ["ANN401"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.12"
+files = ["src", "tests"]
+strict = true
+warn_unreachable = true
+pretty = true
+plugins = ["pydantic.mypy"]
+# `tests/conftest.py` and `tests/ui/conftest.py` share a basename; explicit
+# package bases give each file a unique module name.
+explicit_package_bases = true
+mypy_path = "src"
+
+[[tool.mypy.overrides]]
+module = ["faker", "faker.*"]
+ignore_missing_imports = true

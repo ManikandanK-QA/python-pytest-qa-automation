@@ -1,0 +1,35 @@
+# Virtual environment
+.venv/
+venv/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Test artefacts
+allure-results/
+allure-report/
+reports/
+test-results/
+artifacts/
+
+# Auth sessions (never commit a live session)
+.auth/
+
+# Local configuration and secrets
+.env
+.env.local
+
+# Editors and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
