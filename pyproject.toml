@@ -32,7 +32,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-  "mypy>=1.18,<2",
+  "mypy>=1.18,<3",
   "ruff>=0.17,<1",
 ]
 
