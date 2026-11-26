@@ -157,6 +157,26 @@ Each run produces:
 A UI failure also attaches the full-page screenshot and page HTML directly to the
 Allure result, so the report is enough to triage without the CI artifact.
 
+The merged report is published live at
+[manikandank-qa.github.io/python-pytest-qa-automation](https://manikandank-qa.github.io/python-pytest-qa-automation/).
+The screenshot below is captured from that published report, not a mock.
+
+![Published Allure report showing 50 test cases at 100 percent pass](docs/sample-report.png)
+
+## Verified in CI
+
+| Check                                             | Result                                  |
+| ------------------------------------------------- | --------------------------------------- |
+| Quality gate (Ruff format, Ruff lint, strict mypy) | passed                                  |
+| API job and UI jobs on Chromium, Firefox, WebKit  | passed                                  |
+| Combined Allure report                            | **50 test cases, 100% pass**            |
+| Publish job to `gh-pages`                         | passed                                  |
+| Dependabot PR #1 (mypy constraint)                | merged; post-merge CI passed            |
+
+The post-merge run was
+[45879569846](https://github.com/ManikandanK-QA/python-pytest-qa-automation/actions/runs/45879569846).
+All jobs, including `Publish Allure report`, completed successfully.
+
 ## CI/CD
 
 ```
