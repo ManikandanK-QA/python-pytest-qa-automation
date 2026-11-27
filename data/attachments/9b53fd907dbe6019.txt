@@ -1,1 +1,0 @@
-WARNING  qa.api:client.py:92 POST /booking -> 500 (43.7ms)
